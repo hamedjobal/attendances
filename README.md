@@ -128,6 +128,7 @@ EmployeeID	Name	Department	Position	HireDate
 
 
 1️⃣ Employee Model
+
 public class Employee
 {
     public int EmployeeId { get; set; }   // المفتاح الأساسي
@@ -135,7 +136,6 @@ public class Employee
     public string JobTitle { get; set; } = string.Empty;
     public int DepartmentId { get; set; } // علاقة مع جدول Department
     public DateTime HireDate { get; set; }
-
     // Navigation properties
     public Department? Department { get; set; }
     public ICollection<Attendance>? Attendances { get; set; }
