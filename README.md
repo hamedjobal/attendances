@@ -136,8 +136,6 @@ public class Employee
     public string JobTitle { get; set; } = string.Empty;
     public int DepartmentId { get; set; } // علاقة مع جدول Department
     public DateTime HireDate { get; set; }
-    
-    // Navigation properties
     public Department? Department { get; set; }
     public ICollection<Attendance>? Attendances { get; set; }
     public ICollection<LeaveRequest>? LeaveRequests { get; set; }
