@@ -129,79 +129,89 @@ EmployeeID	Name	Department	Position	HireDate
 
 1️⃣ Employee Model
 
-//public class Employee
+public class Employee
 {
-    public int EmployeeId { get; set; }   // المفتاح الأساسي
+    public int Id { get; set; }
+    public int MilitaryId { get; set; }
     public string FullName { get; set; } = string.Empty;
-    public string JobTitle { get; set; } = string.Empty;
-    public int DepartmentId { get; set; } // علاقة مع جدول Department
-    public DateTime HireDate { get; set; }
-    public Department? Department { get; set; }
+    public string Rank { get; set; } = string.Empty;
+    public int DepartmentId { get; set; }
+    public Department Department { get; set; }
     public ICollection<Attendance>? Attendances { get; set; }
-    public ICollection<LeaveRequest>? LeaveRequests { get; set; }
 }
 
 2️⃣ Department Model
 public class Department
 {
-    public int DepartmentId { get; set; }   // المفتاح الأساسي
+    public int DepartmentId { get; set; }
     public string Name { get; set; } = string.Empty;
-
-    // Navigation property
     public ICollection<Employee>? Employees { get; set; }
 }
 
 3️⃣ Attendance Model
 public class Attendance
 {
-    public int AttendanceId { get; set; }   // المفتاح الأساسي
-    public int EmployeeId { get; set; }     // علاقة مع جدول Employee
+    public int AttendanceId { get; set; }  
+    public int MilitaryId { get; set; }     
     public DateTime Date { get; set; }
     public DateTime? CheckIn { get; set; }
     public DateTime? CheckOut { get; set; }
-    public string Status { get; set; } = "Present"; 
-    // (Present, Late, Absent)
-
-    // Navigation property
+    public string Status { get; set; } = "Present"; // (Present, Late, Absent)
     public Employee? Employee { get; set; }
 }
 
-4️⃣ LeaveRequest Model
-public class LeaveRequest
-{
-    public int LeaveRequestId { get; set; } // المفتاح الأساسي
-    public int EmployeeId { get; set; }     // علاقة مع جدول Employee
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public string LeaveType { get; set; } = "Annual"; 
-    // (Annual, Sick, Unpaid)
 
-    public string Status { get; set; } = "Pending"; 
-    // (Pending, Approved, Rejected)
-
-    // Navigation property
-    public Employee? Employee { get; set; }
-}
-
-5️⃣ Holiday Model
-public class Holiday
-{
-    public int HolidayId { get; set; }     // المفتاح الأساسي
-    public DateTime Date { get; set; }
-    public string Description { get; set; } = string.Empty;
-}
-
-6️⃣ Shift (WorkSchedule) Model
-public class Shift
-{
-    public int ShiftId { get; set; }       // المفتاح الأساسي
-    public string Name { get; set; } = string.Empty;  
-    // (Morning, Evening, Night)
-
-    public TimeSpan StartTime { get; set; }
-    public TimeSpan EndTime { get; set; }
-
-    // علاقة اختيارية مع الموظفين
-    public ICollection<Employee>? Employees { get; set; }
-}
-
+AttendsProject/
+│
+├── Data/
+│   ├── AppDbContext.cs          
+│   ├── DapperContext.cs        
+│
+├── Models/
+│   ├── Employee.cs
+│   ├── Department.cs
+│   ├── Attendance.cs
+│
+├── DTOs/
+│   ├── Employee/
+│   │   ├── EmployeeCreateDto.cs
+│   │   ├── EmployeeUpdateDto.cs
+│   │   ├── EmployeeReadDto.cs
+│   │
+│   ├── Department/
+│   │   ├── DepartmentCreateDto.cs
+│   │   ├── DepartmentUpdateDto.cs
+│   │   ├── DepartmentReadDto.cs
+│   │   
+|   ├──Attendance 
+│   │   ├── AttendanceCreateDto.cs
+│   │   ├── AttendanceUpdateDto.cs
+│   │   ├── AttendanceReadDto.cs
+│   │   
+│
+├── Interfaces/
+│   ├── Repositories/
+│   │   ├── IEmployeeRepository.cs
+│   │   ├── IDepartmentRepository.cs
+│   │   └── IAttendanceRepository.cs
+│   ├── Services/
+│   │   ├── IEmployeeService.cs
+│   │   ├── IDepartmentService.cs
+│   │   └── IAttendanceService.cs
+│
+├── Repositories/
+│   ├── EmployeeRepository.cs
+│   ├── DepartmentRepository.cs
+│   └── AttendanceRepository.cs
+│
+├── Services/
+│   ├── EmployeeService.cs
+│   ├── DepartmentService.cs
+│   └── AttendanceRepository.cs
+│
+├── Controllers/
+│   ├── EmployeeController.cs
+│   ├── DepartmentController.cs
+│   └── AttendanceController.cs
+│
+└── Program.cs 
