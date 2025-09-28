@@ -129,7 +129,7 @@ EmployeeID	Name	Department	Position	HireDate
 
 1️⃣ Employee Model
 
-public class Employee
+//public class Employee
 {
     public int EmployeeId { get; set; }   // المفتاح الأساسي
     public string FullName { get; set; } = string.Empty;
